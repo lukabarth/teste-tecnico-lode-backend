@@ -32,7 +32,7 @@ public class PacienteModel implements Serializable {
     @Column(unique = true)
     private String cpf;
 
-    @ManyToMany(mappedBy = "pacientes", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "pacientes", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ConsultaModel> consultas;
 }
 ;

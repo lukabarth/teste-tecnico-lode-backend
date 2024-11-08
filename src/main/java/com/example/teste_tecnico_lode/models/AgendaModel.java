@@ -27,7 +27,7 @@ public class AgendaModel implements Serializable {
     @JoinColumn(name = "medico_id", referencedColumnName = "idMedico")
     private MedicoModel medico;
 
-    @OneToOne(mappedBy = "agenda")
+    @OneToOne(mappedBy = "agenda", cascade = CascadeType.ALL)
     @JsonBackReference
     private ConsultaModel consulta;
 }
