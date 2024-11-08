@@ -1,5 +1,6 @@
 package com.example.teste_tecnico_lode.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,4 +26,8 @@ public class AgendaModel implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "medico_id", referencedColumnName = "idMedico")
     private MedicoModel medico;
+
+    @OneToOne(mappedBy = "agenda")
+    @JsonBackReference
+    private ConsultaModel consulta;
 }
