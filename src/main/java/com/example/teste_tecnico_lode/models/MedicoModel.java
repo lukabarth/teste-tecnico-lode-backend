@@ -1,38 +1,31 @@
 package com.example.teste_tecnico_lode.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "laboratorio")
+@Table(name = "medicos")
 public class MedicoModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long idMedico;
 
-    @Column(nullable = false)
-    private String name;
+    private String nome;
 
-    @Column(nullable = false)
     private String conselho;
 
-    @Column(nullable = false)
     private String estado;
 
-    @Column(nullable = false)
-    private String cpf;
-
-    @JsonBackReference
-    @OneToOne(mappedBy = "medico")
-    private AgendaModel agenda;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "medico", cascade = CascadeType.ALL)
+    private List<AgendaModel> agendas;
 }

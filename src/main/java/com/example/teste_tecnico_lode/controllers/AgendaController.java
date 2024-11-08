@@ -2,7 +2,10 @@ package com.example.teste_tecnico_lode.controllers;
 
 import com.example.teste_tecnico_lode.dtos.AgendaRecordDto;
 import com.example.teste_tecnico_lode.models.AgendaModel;
+import com.example.teste_tecnico_lode.models.MedicoModel;
 import com.example.teste_tecnico_lode.repositories.AgendaRepository;
+import com.example.teste_tecnico_lode.repositories.MedicoRepository;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,16 +15,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@NoArgsConstructor
 @RestController
 public class AgendaController {
+    @Autowired
+    private MedicoRepository medicoRepository;
 
     @Autowired
     AgendaRepository agendaRepository;
 
     @PostMapping("/agendas")
-    public ResponseEntity<AgendaModel> saveAgenda(@RequestBody AgendaRecordDto agendaRecordDto) {
+    public ResponseEntity<Object> saveAgenda(@RequestBody AgendaRecordDto agendaRecordDto) {
         var agendaModel = new AgendaModel();
         BeanUtils.copyProperties(agendaRecordDto, agendaModel);
+
+        Optional<MedicoModel> medico = medicoRepository.findById(agendaRecordDto.medicoId());
+        if (medico.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Médico não encontrado.");
+        }
+        agendaModel.setMedico(medico.get());
+
         return ResponseEntity.status(HttpStatus.CREATED).body(agendaRepository.save(agendaModel));
     }
 

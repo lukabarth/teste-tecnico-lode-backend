@@ -1,11 +1,13 @@
 package com.example.teste_tecnico_lode.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,19 +18,21 @@ public class PacienteModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long idPaciente;
 
-    @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
     private int idade;
 
-    @Column(nullable = false)
-    private String sexo;
+    private String estado;
 
-    @Column(unique = true, nullable = false)
+    private String cidade;
+
+    @Column(unique = true)
     private String cpf;
+
+    @ManyToMany(mappedBy = "pacientes")
+    private List<ConsultaModel> consultas;
 }
 ;

@@ -5,5 +5,5 @@ import com.example.teste_tecnico_lode.models.DiaSemana;
 import java.time.LocalTime;
 
 public record AgendaRecordDto(DiaSemana diaSemana, LocalTime horarioDisponivel,
-                              String medico) {
+                              Long medicoId) {
 }
