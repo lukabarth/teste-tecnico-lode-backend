@@ -19,6 +19,7 @@ public class AgendaModel implements Serializable {
     private long idAgenda;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private DiaSemana diaSemana;
 
     private LocalTime horarioDisponivel;
