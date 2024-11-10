@@ -21,6 +21,7 @@ public class MedicoModel implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long idMedico;
 
+    @Column(nullable = false)
     private String nome;
 
     private String conselho;
@@ -28,7 +29,6 @@ public class MedicoModel implements Serializable {
     private String estado;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "medico", cascade = CascadeType.ALL)
-    // @JsonManagedReference
     @JsonBackReference
     private List<AgendaModel> agendas;
 }
