@@ -18,6 +18,7 @@ public class MedicoController {
     @Autowired
     MedicoRepository medicoRepository;
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/medicos")
     public ResponseEntity<MedicoModel> saveMedico(@RequestBody MedicoRecordDto medicoRecordDto) {
         var medicoModel = new MedicoModel();
@@ -25,17 +26,20 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(medicoRepository.save(medicoModel));
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/medicos")
     public ResponseEntity<List<MedicoModel>> getAllMedicos() {
         return ResponseEntity.status(HttpStatus.OK).body(medicoRepository.findAll());
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/medicos/{id}")
     public ResponseEntity<Object> getOneMedico(@PathVariable(value = "id") Long id) {
         Optional<MedicoModel> medicoO = medicoRepository.findById(id);
         return medicoO.<ResponseEntity<Object>>map(medicoModel -> ResponseEntity.status(HttpStatus.OK).body(medicoModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Médico não encontrado."));
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PutMapping("medico/{id}")
     public ResponseEntity<Object> updateMedico(@PathVariable(value = "id") Long id,
                                                @RequestBody MedicoRecordDto medicoRecordDto) {
@@ -48,6 +52,7 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.OK).body(medicoRepository.save(medicoModel));
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @DeleteMapping("medico/{id}")
     public ResponseEntity<Object> deleteMedico(@PathVariable(value = "id") Long id) {
         Optional<MedicoModel> medicoO = medicoRepository.findById(id);

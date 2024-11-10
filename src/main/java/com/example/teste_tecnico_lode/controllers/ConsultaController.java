@@ -30,6 +30,7 @@ public class ConsultaController {
     @Autowired
     ConsultaRepository consultaRepository;
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/consultas")
     public ResponseEntity<Object> saveConsulta(@RequestBody ConsultaRecordDto consultaRecordDto) {
         var consultaModel = new ConsultaModel();
@@ -55,17 +56,20 @@ public class ConsultaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(consultaRepository.save(consultaModel));
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/consultas")
     public ResponseEntity<List<ConsultaModel>> getAllConsultas() {
         return ResponseEntity.status(HttpStatus.OK).body(consultaRepository.findAll());
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/consultas/{id}")
     public ResponseEntity<Object> getOneConsulta(@PathVariable(value="id") Long id) {
         Optional<ConsultaModel> consultaO = consultaRepository.findById(id);
         return consultaO.<ResponseEntity<Object>>map(consultaModel -> ResponseEntity.status(HttpStatus.OK).body(consultaModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Consulta não encontrada"));
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PutMapping("consulta/{id}")
     public ResponseEntity<Object> updateConsulta(@PathVariable(value = "id") Long id,
                                                @RequestBody ConsultaRecordDto consultaRecordDto) {
@@ -78,6 +82,7 @@ public class ConsultaController {
         return ResponseEntity.status(HttpStatus.OK).body(consultaRepository.save(consultaModel));
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @DeleteMapping("consulta/{id}")
     public ResponseEntity<Object> deleteConsulta(@PathVariable(value = "id") Long id) {
         Optional<ConsultaModel> consultaO = consultaRepository.findById(id);
