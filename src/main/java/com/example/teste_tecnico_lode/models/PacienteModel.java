@@ -33,6 +33,6 @@ public class PacienteModel implements Serializable {
     private String cpf;
 
     @ManyToMany(mappedBy = "pacientes", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<ConsultaModel> consultas;
 }
-;
