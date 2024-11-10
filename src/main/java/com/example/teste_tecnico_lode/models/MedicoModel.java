@@ -1,5 +1,6 @@
 package com.example.teste_tecnico_lode.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,5 +28,7 @@ public class MedicoModel implements Serializable {
     private String estado;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "medico", cascade = CascadeType.ALL)
+    // @JsonManagedReference
+    @JsonBackReference
     private List<AgendaModel> agendas;
 }
