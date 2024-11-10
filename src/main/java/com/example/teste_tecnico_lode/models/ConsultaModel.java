@@ -1,14 +1,12 @@
 package com.example.teste_tecnico_lode.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -23,8 +21,6 @@ public class ConsultaModel implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long idConsulta;
 
-    private LocalDate dataConsulta;
-
     @ManyToMany
     @JoinTable(
             name = "consulta_paciente",
@@ -35,6 +31,6 @@ public class ConsultaModel implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "id_agenda")
-    @JsonManagedReference
+    @JsonBackReference
     private AgendaModel agenda;
 }
