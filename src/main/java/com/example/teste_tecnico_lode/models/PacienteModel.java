@@ -21,6 +21,7 @@ public class PacienteModel implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long idPaciente;
 
+    @Column(nullable = false)
     private String nome;
 
     private int idade;
