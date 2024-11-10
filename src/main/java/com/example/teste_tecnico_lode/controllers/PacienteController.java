@@ -36,7 +36,7 @@ public class PacienteController {
     @GetMapping("/pacientes/{id}")
     public ResponseEntity<Object> getOnePaciente(@PathVariable(value = "id") Long id) {
         Optional<PacienteModel> pacienteO = pacienteRepository.findById(id);
-        return pacienteO.<ResponseEntity<Object>>map(pacienteModel -> ResponseEntity.status(HttpStatus.OK).body(pacienteModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Médico não encontrado."));
+        return pacienteO.<ResponseEntity<Object>>map(pacienteModel -> ResponseEntity.status(HttpStatus.OK).body(pacienteModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente não encontrado."));
     }
 
     @CrossOrigin(origins = "http://localhost:5173")
